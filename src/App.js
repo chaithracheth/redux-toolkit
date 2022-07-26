@@ -1,25 +1,35 @@
-import logo from './logo.svg';
 import './App.css';
+import {useEffect} from "react";
+import {useDispatch,useSelector,connect} from "react-redux";
+// import {getCatsFetch} from "./Reducer/catSliceReducer";
+import {getCatsFetch,getCatsIndex,getCatsFetchSuccess} from "./actions/actions";
+import {getUsersFetch} from "./Reducer/userSliceReducer";
+import globalSelector from './globalSelector'
+import {workCatsFetch} from "./sagas/catSaga";
 
 function App() {
+    useEffect(() => {
+
+    },[])
+    const dispatch = useDispatch()
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <div>
+            <button onClick={() => {
+                dispatch(getCatsFetch({payload:20}))
+                // dispatch(getCatsIndex(2))
+            }}>Cat Click</button>
+        </div>
+        <div>
+            <button onClick={() => {
+                dispatch(getUsersFetch())
+            }}>
+                User click
+            </button>
+        </div>
+
     </div>
   );
 }
 
-export default App;
+export default connect(globalSelector)(App);
